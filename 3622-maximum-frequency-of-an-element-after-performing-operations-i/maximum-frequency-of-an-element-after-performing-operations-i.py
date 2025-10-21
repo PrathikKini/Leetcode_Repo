@@ -1,0 +1,19 @@
+class Solution:
+    def maxFrequency(self, nums: List[int], k: int, numOperations: int) -> int:
+        maxval = max(nums) + k + 2
+        count = [0] * maxval
+
+        for v in nums:
+            count[v] += 1
+        
+        for i in range(1, maxval):
+            count[i] += count[i-1]
+
+        res = 0
+        for i in range(maxval):
+            l = max(0, i-k)
+            r = min(maxval - 1, i + k)
+            total = count[r] - (count[l-1] if l else 0)
+            freq = count[i] - (count[i-1] if i else 0)
+            res = max(res, freq + min(numOperations, total - freq))
+        return res
