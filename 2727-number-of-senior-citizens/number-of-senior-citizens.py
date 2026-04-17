@@ -1,3 +1,7 @@
 class Solution:
     def countSeniors(self, details: List[str]) -> int:
-        return sum(1 for detail in details if int(detail[-4:-2])>60)
+        cnt = 0
+        for age in details:
+            if int(age[11:13]) > 60:
+                cnt+=1
+        return cnt
